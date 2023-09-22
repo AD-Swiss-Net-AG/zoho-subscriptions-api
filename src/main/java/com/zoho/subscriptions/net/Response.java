@@ -1,5 +1,5 @@
 
-package com.zoho.zs.client.api.net;
+package com.zoho.subscriptions.net;
 
 import java.util.List;
 import java.util.Map;

@@ -1,8 +1,8 @@
 
 
-package com.zoho.zs.client.api.net;
+package com.zoho.subscriptions.net;
 
-import com.zoho.zs.client.api.exception.APIConnectionException;
+import com.zoho.subscriptions.exception.APIConnectionException;
 
 public class ZSClient
 {

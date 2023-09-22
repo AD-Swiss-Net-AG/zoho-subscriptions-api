@@ -1,20 +1,27 @@
 # Zoho Subscriptions Java Client Library
 
+## Prologue
+
 An open source Java Client library for integrating with Zoho Subscriptions Billing Solution
 
-### To get the latest jar 
+This is a fork of https://github.com/zoho/subscriptions-java-client. It used outdated dependencies.
 
-Subscriptions java client jar is listed under the ```dist``` directory. Just checkout the latest version by 
-```git checkout [latest release tag]```
+So we decided to update dependencies and mavenized the project for easier dependency-injection.
 
 ## Usage
-Import the Zoho Subscriptions Java Client Library to your project
+Import the Zoho Subscriptions Java Client Library to your project through maven:
+
+    <dependency>
+        <groupId>ch.adswiss.utils</groupId>
+        <artifactId>zoho-subscriptions-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
 
 ### Setup
 
 
 **SetUp Organization ID and OAuth Access Token**
-    
+
 1. Get Organization Id <a href="https://www.zoho.com/subscriptions/api/v1/#organization-id">refer</a>
 2. Generate oauth token using <a href="https://www.zoho.com/subscriptions/api/v1/#oauth">API Reference</a>
 
@@ -66,10 +73,3 @@ public class Main {
 ## License
 
 See the LICENCE file.
-
-## Dependencies
-------------
-- [jackson-annotations-2.0.2.jar](https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.0.2/jackson-annotations-2.0.2.jar)
-- [jackson-core-2.0.2.jar](https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.0.2/jackson-core-2.0.2.jar)
-- [jackson-databind-2.0.2.jar](https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.0.2/jackson-databind-2.0.2.jar)
-

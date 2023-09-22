@@ -1,6 +1,15 @@
 
-package com.zoho.zs.client.api.net;
+package com.zoho.subscriptions.net;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.zoho.subscriptions.exception.APIConnectionException;
+import com.zoho.subscriptions.exception.InvalidRequestException;
+import com.zoho.subscriptions.exception.ZSAPIException;
+import com.zoho.subscriptions.net.Resource.RequestMethod;
+
+import javax.naming.AuthenticationException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,15 +24,6 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
-import javax.naming.AuthenticationException;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.zoho.zs.client.api.exception.APIConnectionException;
-import com.zoho.zs.client.api.exception.InvalidRequestException;
-import com.zoho.zs.client.api.exception.ZSAPIException;
-import com.zoho.zs.client.api.net.Resource.RequestMethod;
-
 public class RequestUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(RequestUtil.class.getName());
@@ -31,7 +31,7 @@ public class RequestUtil
 	private static ObjectMapper mapper = new ObjectMapper();
 	static
 	{
-		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+		mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 		mapper.setSerializationInclusion(Include.NON_NULL);
 	}
 

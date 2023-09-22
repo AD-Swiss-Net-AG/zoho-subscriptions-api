@@ -1,9 +1,9 @@
 
-package com.zoho.zs.client.api.model;
-
-import java.util.Date;
+package com.zoho.subscriptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Activity

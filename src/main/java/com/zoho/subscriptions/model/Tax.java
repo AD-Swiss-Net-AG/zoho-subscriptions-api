@@ -1,8 +1,8 @@
-package com.zoho.zs.client.api.model;
-
-import java.math.BigDecimal;
+package com.zoho.subscriptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tax {

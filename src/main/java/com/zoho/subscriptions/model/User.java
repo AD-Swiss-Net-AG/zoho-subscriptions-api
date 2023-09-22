@@ -1,5 +1,5 @@
 
-package com.zoho.zs.client.api.model;
+package com.zoho.subscriptions.model;
 
 import java.util.Date;
 

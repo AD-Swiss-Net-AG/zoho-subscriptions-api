@@ -1,6 +1,6 @@
 
 
-package com.zoho.zs.client.api.exception;
+package com.zoho.subscriptions.exception;
 
 public class APIConnectionException extends ZSAPIException
 {

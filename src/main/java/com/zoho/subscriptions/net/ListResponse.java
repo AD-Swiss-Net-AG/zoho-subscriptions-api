@@ -1,13 +1,13 @@
 
-package com.zoho.zs.client.api.net;
-
-import java.util.Collection;
+package com.zoho.subscriptions.net;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.zoho.zs.client.api.exception.ZSAPIException;
+import com.zoho.subscriptions.exception.ZSAPIException;
+
+import java.util.Collection;
 
 public class ListResponse<T>
 {

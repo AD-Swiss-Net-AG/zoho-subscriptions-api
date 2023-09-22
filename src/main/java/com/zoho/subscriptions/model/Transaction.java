@@ -1,14 +1,14 @@
 
-package com.zoho.zs.client.api.model;
-
-import java.math.BigDecimal;
+package com.zoho.subscriptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zoho.zs.client.api.exception.ZSAPIException;
-import com.zoho.zs.client.api.net.GenericListParams;
-import com.zoho.zs.client.api.net.ListResponse;
-import com.zoho.zs.client.api.net.Resource;
-import com.zoho.zs.client.api.net.ResourceUtil;
+import com.zoho.subscriptions.exception.ZSAPIException;
+import com.zoho.subscriptions.net.GenericListParams;
+import com.zoho.subscriptions.net.ListResponse;
+import com.zoho.subscriptions.net.Resource;
+import com.zoho.subscriptions.net.ResourceUtil;
+
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction extends Resource

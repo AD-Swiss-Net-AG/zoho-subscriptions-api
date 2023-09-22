@@ -1,7 +1,7 @@
-package com.zoho.zs.client.api.model;
+package com.zoho.subscriptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zoho.zs.client.api.net.Resource;
+import com.zoho.subscriptions.net.Resource;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
