@@ -1,3 +1,7 @@
+## v3.0.01
+***
+1. Add deployment
+
 ## v3.0.0
 ***
 1. Mavenize project
