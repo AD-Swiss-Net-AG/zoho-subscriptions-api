@@ -3,7 +3,17 @@
 
 name: Maven Package
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [ opened, synchronize, reopened, closed ]
+    branches:
+      - main
+  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build:
