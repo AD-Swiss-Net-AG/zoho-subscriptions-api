@@ -36,6 +36,23 @@ public class Hostedpage extends Resource
 
 	CustomField customField;
 
+	Data data;
+
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class Data extends Resource {
+
+		Subscription subscription;
+
+		Invoice invoice;
+
+		public void setSubscription(Subscription subscription) { this.subscription = subscription; }
+
+		public Subscription getSubscription() { return subscription; }
+
+		public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+
+		public Invoice getInvoice() { return invoice; }
+	}
 
 	public static Hostedpage retrieve(String id) throws ZSAPIException
 	{
@@ -121,6 +138,9 @@ public class Hostedpage extends Resource
 		return status;
 	}
 
+	public void setData(Data data) { this.data = data; }
+
+	public Data getData() { return data; }
 
 	private void setUrl(String url)
 	{
