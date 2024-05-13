@@ -51,13 +51,10 @@ public class Plan extends Resource {
 
 	String description;
 
-	@JsonIgnore
 	String taxName;
 
-	@JsonIgnore
-	String taxPercentage;
+	BigDecimal taxPercentage;
 
-	@JsonIgnore
 	String taxType;
 
 	@JsonIgnore
@@ -336,12 +333,12 @@ public class Plan extends Resource {
 		this.taxExemptionId = taxExemptionId;
 	}
 
-	public String getTaxPercentage()
+	public BigDecimal getTaxPercentage()
 	{
 		return taxPercentage;
 	}
 
-	public void setTaxPercentage(String taxPercentage)
+	public void setTaxPercentage(BigDecimal taxPercentage)
 	{
 		this.taxPercentage = taxPercentage;
 	}
