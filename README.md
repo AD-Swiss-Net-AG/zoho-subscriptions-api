@@ -22,8 +22,8 @@ Import the Zoho Subscriptions Java Client Library to your project through maven:
 
 **SetUp Organization ID and OAuth Access Token**
 
-1. Get Organization Id <a href="https://www.zoho.com/subscriptions/api/v1/#organization-id">refer</a>
-2. Generate oauth token using <a href="https://www.zoho.com/subscriptions/api/v1/#oauth">API Reference</a>
+1. Get Organization Id <a href="https://www.zohoapis.com/billing/v1/#organization-id">refer</a>
+2. Generate oauth token using <a href="https://www.zohoapis.com/billing/v1/#oauth">API Reference</a>
 
 ##### Sample Code:
 
@@ -41,7 +41,7 @@ public class Main {
 
 ## How to use
 
-Use the below sample code for Customer Creation refer <a href="https://www.zoho.com/subscriptions/api/v1/#Customers_Create_a_customer">Api Docs</a>
+Use the below sample code for Customer Creation refer <a href="https://www.zohoapis.com/billing/v1/#Customers_Create_a_customer">Api Docs</a>
 
 Example to create a Customer:
 
