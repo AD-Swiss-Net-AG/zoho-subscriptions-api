@@ -1,3 +1,9 @@
+## v3.0.4
+***
+1. Add taxes
+2. Add extended plan data
+3. Changed default domain for API
+
 ## v3.0.01
 ***
 1. Add deployment

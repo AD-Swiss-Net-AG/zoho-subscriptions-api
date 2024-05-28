@@ -11,7 +11,7 @@ public class ZSClient
 
 	static final String DEFAULT_ACCEPT_HEADER = "application/json";
 
-	static String host = "subscriptions.zoho.com";
+	static String host = "www.zohoapis.com";
 
 	static String version = "v1";
 
@@ -68,7 +68,7 @@ public class ZSClient
 
 	protected static String getBaseUrl()
 	{
-		return "https://" + getHost() + "/api/" + getVersion();
+		return "https://" + getHost() + "/billing/" + getVersion();
 	}
 
 	protected static String getOauthtoken() throws Exception
