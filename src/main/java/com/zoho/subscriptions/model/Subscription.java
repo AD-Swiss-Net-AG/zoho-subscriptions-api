@@ -1154,7 +1154,11 @@ public class Subscription extends Resource
 
 		static String name;
 
-		BigDecimal discount;
+		/**
+		 * The plan discount on a subscription is set as 30.00% for percentage type coupons or 30.00 for flat type coupons.
+		 * The discount will only set when coupon redemption type is 'forever'.
+		 */
+		String discount;
 
 		BigDecimal price;
 
@@ -1248,12 +1252,12 @@ public class Subscription extends Resource
 			return total;
 		}
 
-		public void setDiscount(BigDecimal discount)
+		public void setDiscount(String discount)
 		{
 			this.discount = discount;
 		}
 
-		public BigDecimal getDiscount()
+		public String getDiscount()
 		{
 			return discount;
 		}
@@ -1500,7 +1504,11 @@ public class Subscription extends Resource
 
 		String addonDescription;
 
-		BigDecimal discount;
+		/**
+		 * The addon discount on a subscription is set as 30.00% for percentage type coupons or 30.00 for flat type coupons.
+		 * The discount will only set when coupon redemption type is 'forever'.
+		 */
+		String discount;
 
 		BigDecimal total;
 
@@ -1567,12 +1575,12 @@ public class Subscription extends Resource
 			return quantity;
 		}
 
-		public void setDiscount(BigDecimal discount)
+		public void setDiscount(String discount)
 		{
 			this.discount = discount;
 		}
 
-		public BigDecimal getDiscount()
+		public String getDiscount()
 		{
 			return discount;
 		}
