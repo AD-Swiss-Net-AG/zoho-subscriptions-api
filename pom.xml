@@ -39,7 +39,7 @@
         <repository>
             <id>github</id>
             <name>GitHub AD Swiss AG Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/AD-Swiss-Net-AG/adswiss-epr-snapshots</url>
+            <url>https://maven.pkg.github.com/AD-Swiss-Net-AG/zoho-subscriptions-api</url>
         </repository>
     </distributionManagement>
 
