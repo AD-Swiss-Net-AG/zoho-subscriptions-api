@@ -1,3 +1,4 @@
 subscriptions-java-client.iml
 .idea/
 /target/
+/qodana.yaml

@@ -3,7 +3,6 @@ package com.zoho.subscriptions.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zoho.subscriptions.exception.ZSAPIException;
-import com.zoho.subscriptions.net.GenericListParams;
 import com.zoho.subscriptions.net.ListResponse;
 import com.zoho.subscriptions.net.Resource;
 import com.zoho.subscriptions.net.ResourceUtil;
@@ -45,8 +44,7 @@ public class Bank_Account extends Resource
 
 	public static ListResponse<Bank_Account> retrieve(String customerId,String AccountId) throws ZSAPIException
 	{
-		GenericListParams params = null;
-		return ResourceUtil.list(RequestMethod.GET,instancePath(Customer.class,customerId)+"/bankaccounts/"+AccountId,Bank_Account.class,params);
+        return ResourceUtil.list(RequestMethod.GET,instancePath(Customer.class,customerId)+"/bankaccounts/"+AccountId,Bank_Account.class, null);
 	}
 	public static void delete(String customerId,String AccountId) throws ZSAPIException
 	{

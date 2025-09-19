@@ -14,7 +14,7 @@ Import the Zoho Subscriptions Java Client Library to your project through maven:
     <dependency>
         <groupId>ch.adswiss.utils</groupId>
         <artifactId>zoho-subscriptions-api</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.6</version>
     </dependency>
 
 ### Setup
@@ -67,7 +67,8 @@ public class Main {
         new_customer = Customer.create(customer);
         System.out.println(new_customer.getCustomerId())
     }
-}</pre></code>
+}
+</code></pre>
 
 
 ## License

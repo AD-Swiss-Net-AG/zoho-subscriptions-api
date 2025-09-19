@@ -1,3 +1,13 @@
+## v3.0.6
+***
+1. Upgrade to Java 21
+2. Add apply_changes_on
+3. fix vulnerabilities
+
+## v3.0.5
+***
+1. Upgrade to Java 17
+
 ## v3.0.4
 ***
 1. Add taxes

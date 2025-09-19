@@ -790,7 +790,7 @@ public class Invoice extends Resource
 
 	public void setApplyCreditnotes(List<ApplyCreditnotes> applyCreditnotes)
 	{
-		this.applyCreditnotes = applyCreditnotes;
+		Invoice.applyCreditnotes = applyCreditnotes;
 	}
 
 	public List<ApplyCreditnotes> getApplyCreditnotes()

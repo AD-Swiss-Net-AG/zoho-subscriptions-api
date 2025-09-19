@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class Response
 {
-	private int httpStatus;
+	private final int httpStatus;
 
-	private Object body;
+	private final Object body;
 
-	private boolean error;
+	private final boolean error;
 
-	private Map<String, List<String>> headerFields;
+	private final Map<String, List<String>> headerFields;
 
 	public Response(int code, Object b, Map<String, List<String>> headerFields)
 	{
