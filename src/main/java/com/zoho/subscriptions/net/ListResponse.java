@@ -31,14 +31,12 @@ public class ListResponse<T>
 			JsonNode dataNode = rootNode.get(dataNodeName);
 
 			JavaType type = TypeFactory.defaultInstance().constructParametricType(Collection.class, clazz);
-			Collection<T> list = mapper.readValue(dataNode.toString(), type);
-			this.data = list;
+            this.data = mapper.readValue(dataNode.toString(), type);
 
 			JsonNode pageContextNode = rootNode.get("page_context");
 			if (pageContextNode != null)
 			{
-				PageContext pageContext = mapper.readValue(pageContextNode.toString(), PageContext.class);
-				this.pageContext = pageContext;
+                this.pageContext = mapper.readValue(pageContextNode.toString(), PageContext.class);
 			}
 		}
 		catch (Exception e)
@@ -62,7 +60,7 @@ public class ListResponse<T>
 		this.pageContext = pageContext;
 	}
 
-	private static String getDataNodeName(Class clazz)
+	private static String getDataNodeName(Class<?> clazz)
 	{
 		String nodeName = clazz.getSimpleName().toLowerCase();
 		int length = nodeName.length();

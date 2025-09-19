@@ -196,6 +196,9 @@ public class Subscription extends Resource
 	@JsonIgnore
 	String taxExemptionId;
 
+    @JsonIgnore
+    String applyChangesOn;
+
 	List<PaymentGateway> paymentGateways;
 
 	public static Subscription retrieve(String id) throws ZSAPIException
@@ -1081,7 +1084,19 @@ public class Subscription extends Resource
 		this.taxExemptionId = taxExemptionId;
 	}
 
-	public List<PaymentGateway> getPaymentGateways()
+    @JsonProperty
+    public void setApplyChangesOn(String applyChangesOn)
+    {
+        this.applyChangesOn = applyChangesOn;
+    }
+
+    @JsonIgnore
+    public String getApplyChangesOn()
+    {
+        return applyChangesOn;
+    }
+
+    public List<PaymentGateway> getPaymentGateways()
 	{
 		return paymentGateways;
 	}

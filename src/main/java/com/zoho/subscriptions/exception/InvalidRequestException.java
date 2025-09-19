@@ -4,7 +4,7 @@ package com.zoho.subscriptions.exception;
 
 public class InvalidRequestException extends ZSAPIException
 {
-	private String paramName;
+	private final String paramName;
 
 	public InvalidRequestException(String message, Throwable e)
 	{

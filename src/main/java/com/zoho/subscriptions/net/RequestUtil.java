@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -26,10 +27,13 @@ import java.util.zip.GZIPInputStream;
 
 public class RequestUtil
 {
-	private static final Logger LOGGER = Logger.getLogger(RequestUtil.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RequestUtil.class.getName());
 
-	private static ObjectMapper mapper = new ObjectMapper();
-	static
+    private static final int CONNECT_TIMEOUT_MS = 300000; // 5 minutes
+    private static final int READ_TIMEOUT_MS = 3000000; // 50 minutes
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+    static
 	{
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 		mapper.setSerializationInclusion(Include.NON_NULL);
@@ -40,21 +44,21 @@ public class RequestUtil
 		return request(method, path, null, null, null);
 	}
 
-	public static Response request(RequestMethod method, String path, Resource classObj, Class clazz, GenericParams params) throws ZSAPIException
+	public static Response request(RequestMethod method, String path, Resource classObj, Class<?> clazz, GenericParams params) throws ZSAPIException
 	{
 		return execute(method, path, classObj, clazz, params);
 	}
 
-	private static Response execute(RequestMethod method, String path, Resource classObj, Class clazz, GenericParams params) throws ZSAPIException
+	private static Response execute(RequestMethod method, String path, Resource classObj, Class<?> clazz, GenericParams params) throws ZSAPIException
 	{
 		HttpURLConnection connection = null;
 		String url = String.format("%s/%s", ZSClient.getBaseUrl(), path);
 		try
 		{
-			String queryStr="";
+			String queryStr;
 			if(path.endsWith("cancel"))
 			{
-				String json = new ObjectMapper().writeValueAsString(params.getQueryParams());
+				String json = getMapper().writeValueAsString(params.getQueryParams());
 				queryStr="JSONString="+json;
 			}
 			else
@@ -62,18 +66,10 @@ public class RequestUtil
 				queryStr = constructQuery(classObj, params);
 			}
 
-			switch (method)
-			{
-				case GET:
-				case DELETE:
-				case OPTIONS:
-					connection = createURLConnection(method, url, queryStr);
-					break;
-				case PUT:
-				case POST:
-					connection = createWriteConnection(method, url, queryStr);
-					break;
-			}
+            connection = switch (method) {
+                case GET, DELETE, OPTIONS -> createURLConnection(method, url, queryStr);
+                case PUT, POST -> createWriteConnection(method, url, queryStr);
+            };
 			return constructResponse(connection, clazz);
 
 		}
@@ -121,30 +117,20 @@ public class RequestUtil
 
 	private static void writeQueryString(HttpURLConnection connection, String qryStr) throws IOException
 	{
-		OutputStream os = null;
-		try
-		{
-			os = connection.getOutputStream();
-			os.write(qryStr.getBytes(ZSClient.CHARSET));
-		}
-		finally
-		{
-			if (os != null)
-			{
-				os.close();
-			}
-		}
+        try (OutputStream os = connection.getOutputStream()) {
+            os.write(qryStr.getBytes(ZSClient.CHARSET));
+        }
 	}
 
 	private static HttpURLConnection createConnection(RequestMethod method, String url) throws Exception
 	{
-		URL reqURL = new URL(url);
+		URL reqURL = URI.create(url).toURL();
 		HttpURLConnection connection = (HttpURLConnection) reqURL.openConnection();
 		connection.setRequestMethod(method.name());
 
 		//Connection Params
-		connection.setConnectTimeout(300000); // 30 seconds
-		connection.setReadTimeout(3000000); // 300 seconds
+		connection.setConnectTimeout(CONNECT_TIMEOUT_MS);
+		connection.setReadTimeout(READ_TIMEOUT_MS);
 		connection.setUseCaches(false);
 
 		//Connection Headers
@@ -156,7 +142,7 @@ public class RequestUtil
 		return connection;
 	}
 
-	private static Response constructResponse(HttpURLConnection conn, Class clazz) throws Exception
+	private static Response constructResponse(HttpURLConnection conn, Class<?> clazz) throws Exception
 	{
 
 		InputStream is = null;
@@ -181,13 +167,15 @@ public class RequestUtil
 			}
 			else
 			{
-				InputStreamReader reader = new InputStreamReader(is, ZSClient.CHARSET);
 				StringBuilder buffer = new StringBuilder();
+				try (InputStreamReader reader = new InputStreamReader(is, ZSClient.CHARSET))
+				{
 				char[] bytes = new char[1024];
 				int bytesRead;
 				while ((bytesRead = reader.read(bytes, 0, bytes.length)) > 0)
 				{
 					buffer.append(bytes, 0, bytesRead);
+				}
 				}
 				body = buffer.toString();
 			}
@@ -214,8 +202,8 @@ public class RequestUtil
 
 		if (params != null)
 		{
-			sb = constructParameters(sb, params);
-		}
+            constructParameters(sb, params);
+        }
 		String query = sb.toString();
 		if (query.isEmpty())
 		{
@@ -229,7 +217,7 @@ public class RequestUtil
 		return getMapper().writeValueAsString(classObj);
 	}
 
-	private static StringBuilder constructParameters(StringBuilder sb, GenericParams params) throws InvalidRequestException
+	private static void constructParameters(StringBuilder sb, GenericParams params) throws InvalidRequestException
 	{
 		Map<String, Object> queryMap = params.getQueryParams();
 		for (Entry<String, Object> entry : queryMap.entrySet())
@@ -237,8 +225,7 @@ public class RequestUtil
 			sb.append(encodeParam(entry.getKey(), entry.getValue().toString()));
 		}
 
-		return sb;
-	}
+    }
 
 	public static String encodeParam(String pName, String pValue) throws InvalidRequestException
 	{
@@ -257,42 +244,22 @@ public class RequestUtil
 		return mapper;
 	}
 
-	private static byte[] getByteArray(InputStream is) throws Exception
+	private static byte[] getByteArray(InputStream is) throws IOException
 	{
 		if (is == null)
 		{
 			return null;
 		}
 
-		int size = 1024;
-		byte[] byteBuff = new byte[size];
-
-		int bytesRead = 0;
-
-		ByteArrayOutputStream baos = null;
-
-		byte[] lDataBytes = null;
-		try
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream(1024 * 2))
 		{
-			baos = new ByteArrayOutputStream(size * 2);
+			byte[] byteBuff = new byte[1024];
+		int bytesRead;
 			while ((bytesRead = is.read(byteBuff)) != -1)
 			{
 				baos.write(byteBuff, 0, bytesRead);
 			}
-			lDataBytes = baos.toByteArray();
+			return baos.toByteArray();
 		}
-		finally
-		{
-			if (is != null)
-			{
-				is.close();
-			}
-
-			if (baos != null)
-			{
-				baos.close();
-			}
-		}
-		return lDataBytes;
 	}
 }

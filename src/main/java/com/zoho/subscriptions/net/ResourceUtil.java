@@ -17,7 +17,7 @@ public class ResourceUtil {
 
     public static <T> ListResponse<T> list(RequestMethod method, String path, Class<T> clazz, GenericParams params) throws ZSAPIException {
         Response response = handleRequest(method, path, null, null, params);
-        return new ListResponse<T>(response, clazz);
+        return new ListResponse<>(response, clazz);
     }
 
     public static <T> T process(RequestMethod method, String path, Class<T> clazz, Resource classObj) throws ZSAPIException {
@@ -38,7 +38,10 @@ public class ResourceUtil {
         try {
             Object body = response.getBody();
             if (!(body instanceof String)) {
-                return (T) response;
+                if (clazz.isInstance(response)) {
+                    return clazz.cast(response);
+                }
+                throw new ZSAPIException("Response cannot cast into " + clazz.getName() + ".");
             }
             ObjectMapper mapper = RequestUtil.getMapper();
             JsonNode root = mapper.readTree((String) body);
@@ -57,7 +60,7 @@ public class ResourceUtil {
 
     }
 
-    public static Response handleRequest(RequestMethod method, String path, Resource classObj, Class clazz, GenericParams params) throws ZSAPIException {
+    public static Response handleRequest(RequestMethod method, String path, Resource classObj, Class<?> clazz, GenericParams params) throws ZSAPIException {
         Response response = RequestUtil.request(method, path, classObj, clazz, params);
 
         if (response.isError()) {
@@ -68,7 +71,7 @@ public class ResourceUtil {
     }
 
     private static void handleError(Response response) throws ZSAPIException {
-        ResourceUtil.Error e = null;
+        ResourceUtil.Error e;
         try {
             ObjectMapper mapper = RequestUtil.getMapper();
             e = mapper.readValue((String) response.getBody(), ResourceUtil.Error.class);
