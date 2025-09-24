@@ -1083,13 +1083,11 @@ public class Subscription extends Resource
 		this.taxExemptionId = taxExemptionId;
 	}
 
-    @JsonProperty
     public void setApplyChangesOn(String applyChangesOn)
     {
         this.applyChangesOn = applyChangesOn;
     }
 
-    @JsonIgnore
     public String getApplyChangesOn()
     {
         return applyChangesOn;
