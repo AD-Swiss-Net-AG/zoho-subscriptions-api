@@ -196,7 +196,6 @@ public class Subscription extends Resource
 	@JsonIgnore
 	String taxExemptionId;
 
-    @JsonIgnore
     String applyChangesOn;
 
 	List<PaymentGateway> paymentGateways;
