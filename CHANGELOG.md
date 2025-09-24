@@ -1,3 +1,7 @@
+## v3.0.7
+***
+1. Fix apply_changes_on
+
 ## v3.0.6
 ***
 1. Upgrade to Java 21
