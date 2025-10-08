@@ -1,3 +1,7 @@
+## v3.1.8
+***
+1. Add template_id to subscription
+
 ## v3.0.8
 ***
 1. Remove JSON Annotations from apply_changes_on

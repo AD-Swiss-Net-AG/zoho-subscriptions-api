@@ -197,6 +197,7 @@ public class Subscription extends Resource
 	String taxExemptionId;
 
     String applyChangesOn;
+    String templateId;
 
 	List<PaymentGateway> paymentGateways;
 
@@ -1091,6 +1092,15 @@ public class Subscription extends Resource
     public String getApplyChangesOn()
     {
         return applyChangesOn;
+    }
+
+    public void setTemplateId(String templateId)
+    {
+        this.templateId = templateId;
+    }
+
+    public String getTemplateId() {
+        return templateId;
     }
 
     public List<PaymentGateway> getPaymentGateways()
